@@ -415,8 +415,9 @@ defmodule PhoenixChannelClient do
     end
     state.subscriptions
     |> Flow.from_enumerable()
-    |> Flow.filter_map(filter, mapper)
-    |> Flow.each(sender)
+    |> Flow.filter(filter)
+    |> Flow.map(mapper)
+    |> Flow.map(sender)
     |> Flow.run()
     {:noreply, state}
   end
